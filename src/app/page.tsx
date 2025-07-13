@@ -115,17 +115,6 @@ export default function Home() {
     window.print();
   };
   
-  const professionalInfo = (
-    <div className="flex flex-col gap-2">
-      <Input
-        placeholder="Profession / Industry"
-        value={resumeData.profession}
-        onChange={(e) => handleUpdate('profession', e.target.value)}
-        className="no-print"
-      />
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <Header onCopy={handleCopyUrl} onExport={handleExportPdf} />
@@ -165,12 +154,6 @@ export default function Home() {
               </div>
           </div>
           
-          <div className="no-print my-8 p-4 bg-secondary/50 rounded-lg">
-            <h3 className="font-semibold text-primary mb-2">AI Settings</h3>
-            <p className="text-sm text-muted-foreground mb-4">Provide your profession and industry for better AI suggestions.</p>
-            {professionalInfo}
-          </div>
-
           {/* Summary Section */}
           <Section title="Summary" icon={<User />}>
              <CardContent>
@@ -186,7 +169,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     onClick={handleGenerateSummary}
-                    disabled={isPending || !resumeData.profession}
+                    disabled={isPending}
                   >
                    <Sparkles className="mr-2 h-4 w-4"/>
                    {isPending ? 'Generating...' : 'Generate with AI'}
