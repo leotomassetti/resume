@@ -270,9 +270,9 @@ export default function Home() {
              <CardContent className="space-y-2">
               {resumeData.professionalDevelopment.map((dev, index) => (
                 <div key={index} className="group relative flex items-center">
-                  <p className="text-base flex-grow">
+                  <div className="text-base flex-grow">
                     <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
-                  </p>
+                  </div>
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity no-print ml-2">
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('professionalDevelopment', index)}>
                       <Trash2 className="h-4 w-4 text-destructive" />
