@@ -20,12 +20,14 @@ import {
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const Header: FC<{ onExport: () => void }> = ({ onExport }) => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
     <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
       <h1 className="text-2xl font-bold text-primary">ResumeFlow</h1>
       <div className="flex items-center gap-2">
+        <ModeToggle />
         <Button size="sm" onClick={onExport}>
           <Download className="mr-2 h-4 w-4" />
           Export PDF
@@ -178,7 +180,6 @@ export default function Home() {
               />
             </CardContent>
           </Section>
-
         </div>
       </main>
     </div>
