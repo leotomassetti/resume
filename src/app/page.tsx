@@ -48,32 +48,23 @@ export default function Home() {
             <p className="mt-2 text-lg text-muted-foreground sm:text-xl">{resumeData.title}</p>
           </div>
 
-          {/* Contact Info */}
-          <div className="mb-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4"/>
-                <span>{resumeData.contact.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4"/>
-                <span>{resumeData.contact.phone}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4"/>
-                <span>{resumeData.contact.location}</span>
-              </div>
-          </div>
-          
-          {/* Summary Section */}
-          <Section title="Summary" icon={<User />}>
-             <CardContent>
-              <p className="w-full text-base whitespace-pre-wrap">{resumeData.summary}</p>
-             </CardContent>
-          </Section>
-
-          {/* Links Section */}
-          <Section title="Links" icon={<LinkIcon />}>
-            <CardContent className="flex items-center gap-4">
+          {/* Contact Info & Links */}
+          <div className="mb-10 flex flex-col items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4"/>
+                  <span>{resumeData.contact.email}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4"/>
+                  <span>{resumeData.contact.phone}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4"/>
+                  <span>{resumeData.contact.location}</span>
+                </div>
+            </div>
+            <div className="flex items-center gap-4">
               <a href={resumeData.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                 <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
               </a>
@@ -83,7 +74,14 @@ export default function Home() {
               <a href={resumeData.links.lattes} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                 <FileText className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
               </a>
-            </CardContent>
+            </div>
+          </div>
+          
+          {/* Summary Section */}
+          <Section title="Summary" icon={<User />}>
+             <CardContent>
+              <p className="w-full text-base whitespace-pre-wrap">{resumeData.summary}</p>
+             </CardContent>
           </Section>
 
           {/* Experience Section */}
