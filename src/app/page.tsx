@@ -107,37 +107,37 @@ export default function Home() {
           <Section title="Links" icon={<LinkIcon />}>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <Linkedin className="h-5 w-5 text-muted-foreground" />
-                <a href={`https://${resumeData.links.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
-                  <EditableField
-                    value={resumeData.links.linkedin}
-                    onSave={(v) => handleUpdate('links.linkedin', v)}
-                    placeholder="linkedin.com/in/your-profile"
-                    className="w-full"
-                  />
+                <a href={`https://${resumeData.links.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  <Linkedin className="h-5 w-5 text-muted-foreground" />
                 </a>
+                <EditableField
+                  value={resumeData.links.linkedin}
+                  onSave={(v) => handleUpdate('links.linkedin', v)}
+                  placeholder="linkedin.com/in/your-profile"
+                  className="w-full text-base"
+                />
               </div>
               <div className="flex items-center gap-3">
-                <Github className="h-5 w-5 text-muted-foreground" />
-                <a href={`https://${resumeData.links.github}`} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
-                  <EditableField
-                    value={resumeData.links.github}
-                    onSave={(v) => handleUpdate('links.github', v)}
-                    placeholder="github.com/your-username"
-                    className="w-full"
-                  />
+                <a href={`https://${resumeData.links.github}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  <Github className="h-5 w-5 text-muted-foreground" />
                 </a>
+                <EditableField
+                  value={resumeData.links.github}
+                  onSave={(v) => handleUpdate('links.github', v)}
+                  placeholder="github.com/your-username"
+                  className="w-full text-base"
+                />
               </div>
               <div className="flex items-center gap-3">
-                <FileText className="h-5 w-5 text-muted-foreground" />
-                <a href={`http://${resumeData.links.lattes}`} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
-                  <EditableField
-                    value={resumeData.links.lattes}
-                    onSave={(v) => handleUpdate('links.lattes', v)}
-                    placeholder="lattes.cnpq.br/your-id"
-                    className="w-full"
-                  />
+                <a href={`http://${resumeData.links.lattes}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  <FileText className="h-5 w-5 text-muted-foreground" />
                 </a>
+                <EditableField
+                  value={resumeData.links.lattes}
+                  onSave={(v) => handleUpdate('links.lattes', v)}
+                  placeholder="lattes.cnpq.br/your-id"
+                  className="w-full text-base"
+                />
               </div>
             </CardContent>
           </Section>
