@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React from 'react';
 import { initialResumeData } from '@/lib/initial-data';
 import type { ResumeData } from '@/lib/types';
 import { CardContent } from '@/components/ui/card';
@@ -35,7 +35,7 @@ const Header: FC = () => (
 );
 
 export default function Home() {
-  const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
+  const [resumeData, setResumeData] = React.useState<ResumeData>(initialResumeData);
 
   const handleUpdate = (path: string, value: any) => {
     setResumeData((prev) => {
@@ -94,30 +94,36 @@ export default function Home() {
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
                 <Linkedin className="h-5 w-5 text-muted-foreground" />
-                <EditableField
-                  value={resumeData.links.linkedin}
-                  onSave={(v) => handleUpdate('links.linkedin', v)}
-                  placeholder="linkedin.com/in/your-profile"
-                  className="w-full text-base"
-                />
+                <a href={resumeData.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
+                  <EditableField
+                    value={resumeData.links.linkedin}
+                    onSave={(v) => handleUpdate('links.linkedin', v)}
+                    placeholder="linkedin.com/in/your-profile"
+                    className="w-full"
+                  />
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <Github className="h-5 w-5 text-muted-foreground" />
-                <EditableField
-                  value={resumeData.links.github}
-                  onSave={(v) => handleUpdate('links.github', v)}
-                  placeholder="github.com/your-username"
-                  className="w-full text-base"
-                />
+                <a href={resumeData.links.github} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
+                  <EditableField
+                    value={resumeData.links.github}
+                    onSave={(v) => handleUpdate('links.github', v)}
+                    placeholder="github.com/your-username"
+                    className="w-full"
+                  />
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <FileText className="h-5 w-5 text-muted-foreground" />
-                <EditableField
-                  value={resumeData.links.lattes}
-                  onSave={(v) => handleUpdate('links.lattes', v)}
-                  placeholder="lattes.cnpq.br/your-id"
-                  className="w-full text-base"
-                />
+                <a href={resumeData.links.lattes} target="_blank" rel="noopener noreferrer" className="text-base text-primary hover:underline">
+                  <EditableField
+                    value={resumeData.links.lattes}
+                    onSave={(v) => handleUpdate('links.lattes', v)}
+                    placeholder="lattes.cnpq.br/your-id"
+                    className="w-full"
+                  />
+                </a>
               </div>
             </CardContent>
           </Section>
