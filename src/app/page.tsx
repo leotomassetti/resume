@@ -4,12 +4,9 @@ import type { FC } from 'react';
 import React, { useState } from 'react';
 import { initialResumeData } from '@/lib/initial-data';
 import type { ResumeData } from '@/lib/types';
-import { Button } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
 import {
   Briefcase,
-  Download,
   GraduationCap,
   Mail,
   Phone,
@@ -21,19 +18,13 @@ import {
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
 import { ModeToggle } from '@/components/mode-toggle';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
-const Header: FC<{ onExport: () => void }> = ({ onExport }) => (
+const Header: FC = () => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
     <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
       <h1 className="text-2xl font-bold text-primary">ResumeFlow</h1>
       <div className="flex items-center gap-2">
         <ModeToggle />
-        <Button size="sm" onClick={onExport}>
-          <Download className="mr-2 h-4 w-4" />
-          Export PDF
-        </Button>
       </div>
     </div>
   </header>
@@ -41,7 +32,6 @@ const Header: FC<{ onExport: () => void }> = ({ onExport }) => (
 
 export default function Home() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
-  const { toast } = useToast();
 
   const handleUpdate = (path: string, value: any) => {
     setResumeData((prev) => {
@@ -55,63 +45,10 @@ export default function Home() {
       return newResumeData;
     });
   };
-
-  const handleExportPdf = () => {
-    const resumeElement = document.getElementById('resume-container');
-    if (!resumeElement) {
-        toast({
-            variant: 'destructive',
-            title: 'Error',
-            description: 'Could not find resume content to export.',
-        });
-        return;
-    }
-    html2canvas(resumeElement, {
-        scale: 2,
-        useCORS: true, 
-        logging: false,
-    }).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-            orientation: 'portrait',
-            unit: 'pt',
-            format: 'a4',
-        });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const ratio = canvasWidth / canvasHeight;
-        const width = pdfWidth;
-        const height = width / ratio;
-
-        let position = 0;
-        let heightLeft = height;
-
-        pdf.addImage(imgData, 'PNG', 0, position, width, height);
-        heightLeft -= pdfHeight;
-
-        while (heightLeft > 0) {
-            position = heightLeft - height;
-            pdf.addPage();
-            pdf.addImage(imgData, 'PNG', 0, position, width, height);
-            heightLeft -= pdfHeight;
-        }
-        
-        pdf.save('resume.pdf');
-    }).catch(err => {
-        toast({
-            variant: 'destructive',
-            title: 'Error exporting PDF',
-            description: 'Something went wrong while generating the PDF.',
-        });
-    });
-};
-
   
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
-      <Header onExport={handleExportPdf} />
+      <Header />
       <main className="container mx-auto p-4 md:p-8">
         <div id="resume-container" className="resume-container mx-auto max-w-4xl rounded-lg border bg-card p-6 sm:p-10 shadow-lg">
           {/* Name and Title */}
