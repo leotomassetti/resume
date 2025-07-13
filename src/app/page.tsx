@@ -9,7 +9,6 @@ import { CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import {
   Briefcase,
-  ClipboardCopy,
   Download,
   GraduationCap,
   Mail,
@@ -22,15 +21,11 @@ import {
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
 
-const Header: FC<{ onCopy: () => void; onExport: () => void }> = ({ onCopy, onExport }) => (
+const Header: FC<{ onExport: () => void }> = ({ onExport }) => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
     <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
       <h1 className="text-2xl font-bold text-primary">ResumeFlow</h1>
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" onClick={onCopy}>
-          <ClipboardCopy className="mr-2 h-4 w-4" />
-          Copy URL
-        </Button>
         <Button size="sm" onClick={onExport}>
           <Download className="mr-2 h-4 w-4" />
           Export PDF
@@ -57,21 +52,13 @@ export default function Home() {
     });
   };
 
-  const handleCopyUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast({
-      title: 'URL Copied!',
-      description: 'You can now share your resume with others.',
-    });
-  };
-
   const handleExportPdf = () => {
     window.print();
   };
   
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
-      <Header onCopy={handleCopyUrl} onExport={handleExportPdf} />
+      <Header onExport={handleExportPdf} />
       <main className="container mx-auto p-4 md:p-8">
         <div className="resume-container mx-auto max-w-4xl rounded-lg border bg-card p-6 sm:p-10 shadow-lg">
           {/* Name and Title */}
@@ -171,7 +158,7 @@ export default function Home() {
              <CardContent className="space-y-2">
               {resumeData.professionalDevelopment.map((dev, index) => (
                 <div key={index} className="group relative">
-                  <div className="text-base flex-grow">
+                   <div className="text-base flex-grow">
                     <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
                   </div>
                 </div>
