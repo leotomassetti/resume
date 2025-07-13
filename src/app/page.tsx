@@ -1,11 +1,11 @@
 'use client';
 
-import type { FC, ReactNode } from 'react';
-import React, { useState, useTransition } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { initialResumeData } from '@/lib/initial-data';
-import type { ResumeData, Experience, Education, ProfessionalDevelopment } from '@/lib/types';
+import type { ResumeData } from '@/lib/types';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import {
   Briefcase,
@@ -14,16 +14,13 @@ import {
   GraduationCap,
   Mail,
   Phone,
-  Sparkles,
   Star,
-  Trash2,
   User,
   MapPin,
   Award,
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
-import { generateResumeSummary } from './actions';
 
 const Header: FC<{ onCopy: () => void; onExport: () => void }> = ({ onCopy, onExport }) => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
@@ -46,7 +43,6 @@ const Header: FC<{ onCopy: () => void; onExport: () => void }> = ({ onCopy, onEx
 export default function Home() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
   const { toast } = useToast();
-  const [isPending, startTransition] = useTransition();
 
   const handleUpdate = (path: string, value: any) => {
     setResumeData((prev) => {
@@ -58,30 +54,6 @@ export default function Home() {
       }
       current[keys[keys.length - 1]] = value;
       return newResumeData;
-    });
-  };
-  
-  const handleGenerateSummary = () => {
-    startTransition(async () => {
-      const experienceText = resumeData.experience.map(e => `${e.title} at ${e.company}: ${e.description}`).join('\n');
-      const jobType = resumeData.title;
-
-      try {
-        const result = await generateResumeSummary({ experience: experienceText, jobType });
-        if (result.summary) {
-          handleUpdate('summary', result.summary);
-          toast({
-            title: "Summary Generated!",
-            description: "The AI has generated a new summary for you.",
-          });
-        }
-      } catch (error) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Failed to generate summary.",
-        });
-      }
     });
   };
 
@@ -146,17 +118,6 @@ export default function Home() {
                 className="w-full text-base"
                 placeholder="A brief professional summary..."
               />
-              <div className="mt-4 flex justify-end no-print">
-                 <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleGenerateSummary}
-                    disabled={isPending}
-                  >
-                   <Sparkles className="mr-2 h-4 w-4"/>
-                   {isPending ? 'Generating...' : 'Generate with AI'}
-                 </Button>
-              </div>
              </CardContent>
           </Section>
 
@@ -209,7 +170,7 @@ export default function Home() {
           <Section title="Professional Development" icon={<Award />}>
              <CardContent className="space-y-2">
               {resumeData.professionalDevelopment.map((dev, index) => (
-                <div key={index} className="group relative flex items-center">
+                <div key={index} className="group relative">
                   <div className="text-base flex-grow">
                     <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
                   </div>
