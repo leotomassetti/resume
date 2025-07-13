@@ -20,7 +20,6 @@ import {
   FileText,
   Heart,
 } from 'lucide-react';
-import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
 import { ModeToggle } from '@/components/mode-toggle';
 
@@ -38,19 +37,6 @@ const Header: FC = () => (
 export default function Home() {
   const [resumeData, setResumeData] = React.useState<ResumeData>(initialResumeData);
 
-  const handleUpdate = (path: string, value: any) => {
-    setResumeData((prev) => {
-      const keys = path.replace(/\[(\d+)\]/g, '.$1').split('.');
-      const newResumeData = JSON.parse(JSON.stringify(prev));
-      let current = newResumeData;
-      for (let i = 0; i < keys.length - 1; i++) {
-        current = current[keys[i]];
-      }
-      current[keys[keys.length - 1]] = value;
-      return newResumeData;
-    });
-  };
-  
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <Header />
@@ -58,48 +44,30 @@ export default function Home() {
         <div id="resume-container" className="resume-container mx-auto max-w-4xl rounded-lg border bg-card p-6 sm:p-10 shadow-lg">
           {/* Name and Title */}
           <div className="text-center mb-10">
-            <EditableField
-              as="h1"
-              value={resumeData.name}
-              onSave={(v) => handleUpdate('name', v)}
-              className="text-4xl font-bold tracking-tight text-primary sm:text-5xl"
-              placeholder="Your Name"
-            />
-            <EditableField
-              as="p"
-              value={resumeData.title}
-              onSave={(v) => handleUpdate('title', v)}
-              className="mt-2 text-lg text-muted-foreground sm:text-xl"
-              placeholder="Your Professional Title"
-            />
+            <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">{resumeData.name}</h1>
+            <p className="mt-2 text-lg text-muted-foreground sm:text-xl">{resumeData.title}</p>
           </div>
 
           {/* Contact Info */}
           <div className="mb-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4"/>
-                <EditableField value={resumeData.contact.email} onSave={(v) => handleUpdate('contact.email', v)} placeholder="your.email@example.com" />
+                <span>{resumeData.contact.email}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4"/>
-                <EditableField value={resumeData.contact.phone} onSave={(v) => handleUpdate('contact.phone', v)} placeholder="(123) 456-7890" />
+                <span>{resumeData.contact.phone}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4"/>
-                <EditableField value={resumeData.contact.location} onSave={(v) => handleUpdate('contact.location', v)} placeholder="City, State" />
+                <span>{resumeData.contact.location}</span>
               </div>
           </div>
           
           {/* Summary Section */}
           <Section title="Summary" icon={<User />}>
              <CardContent>
-              <EditableField
-                as="textarea"
-                value={resumeData.summary}
-                onSave={(v) => handleUpdate('summary', v)}
-                className="w-full text-base"
-                placeholder="A brief professional summary..."
-              />
+              <p className="w-full text-base whitespace-pre-wrap">{resumeData.summary}</p>
              </CardContent>
           </Section>
 
@@ -110,34 +78,19 @@ export default function Home() {
                 <a href={`https://${resumeData.links.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                   <Linkedin className="h-5 w-5 text-muted-foreground" />
                 </a>
-                <EditableField
-                  value={resumeData.links.linkedin}
-                  onSave={(v) => handleUpdate('links.linkedin', v)}
-                  placeholder="linkedin.com/in/your-profile"
-                  className="w-full text-base"
-                />
+                <span className="w-full text-base">{resumeData.links.linkedin}</span>
               </div>
               <div className="flex items-center gap-3">
                 <a href={`https://${resumeData.links.github}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                   <Github className="h-5 w-5 text-muted-foreground" />
                 </a>
-                <EditableField
-                  value={resumeData.links.github}
-                  onSave={(v) => handleUpdate('links.github', v)}
-                  placeholder="github.com/your-username"
-                  className="w-full text-base"
-                />
+                <span className="w-full text-base">{resumeData.links.github}</span>
               </div>
               <div className="flex items-center gap-3">
                 <a href={`http://${resumeData.links.lattes}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                   <FileText className="h-5 w-5 text-muted-foreground" />
                 </a>
-                <EditableField
-                  value={resumeData.links.lattes}
-                  onSave={(v) => handleUpdate('links.lattes', v)}
-                  placeholder="lattes.cnpq.br/your-id"
-                  className="w-full text-base"
-                />
+                <span className="w-full text-base">{resumeData.links.lattes}</span>
               </div>
             </CardContent>
           </Section>
@@ -148,21 +101,15 @@ export default function Home() {
               {resumeData.experience.map((exp, index) => (
                 <div key={index} className="group relative">
                   <div className="font-semibold text-primary">
-                    <EditableField value={exp.title} onSave={(v) => handleUpdate(`experience[${index}].title`, v)} placeholder="Job Title" />
+                    {exp.title}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    <EditableField value={exp.company} onSave={(v) => handleUpdate(`experience[${index}].company`, v)} placeholder="Company Name" />
+                    {exp.company}
                   </div>
                   <div className="text-xs text-muted-foreground mb-2">
-                    <EditableField value={exp.date} onSave={(v) => handleUpdate(`experience[${index}].date`, v)} placeholder="Month Year - Month Year" />
+                    {exp.date}
                   </div>
-                  <EditableField
-                    as="textarea"
-                    value={exp.description}
-                    onSave={(v) => handleUpdate(`experience[${index}].description`, v)}
-                    className="text-base"
-                    placeholder="Describe your responsibilities and achievements..."
-                  />
+                  <p className="text-base whitespace-pre-wrap">{exp.description}</p>
                 </div>
               ))}
             </CardContent>
@@ -174,13 +121,13 @@ export default function Home() {
               {resumeData.education.map((edu, index) => (
                 <div key={index} className="group relative">
                   <div className="font-semibold text-primary">
-                    <EditableField value={edu.degree} onSave={(v) => handleUpdate(`education[${index}].degree`, v)} placeholder="Degree or Certificate" />
+                    {edu.degree}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    <EditableField value={edu.school} onSave={(v) => handleUpdate(`education[${index}].school`, v)} placeholder="School or Institution" />
+                    {edu.school}
                   </div>
                   <div className="text-xs text-muted-foreground mb-2">
-                    <EditableField value={edu.date} onSave={(v) => handleUpdate(`education[${index}].date`, v)} placeholder="Month Year - Month Year" />
+                    {edu.date}
                   </div>
                 </div>
               ))}
@@ -193,7 +140,7 @@ export default function Home() {
               {resumeData.professionalDevelopment.map((dev, index) => (
                 <div key={index} className="group relative">
                    <div className="text-base flex-grow">
-                    <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
+                    {dev.name}
                   </div>
                 </div>
               ))}
@@ -203,26 +150,14 @@ export default function Home() {
           {/* Skills Section */}
           <Section title="Skills" icon={<Star />}>
             <CardContent>
-              <EditableField
-                as="textarea"
-                value={resumeData.skills.join(', ')}
-                onSave={(v) => handleUpdate('skills', v.split(',').map(s => s.trim()))}
-                className="w-full text-base"
-                placeholder="Skill 1, Skill 2, Skill 3"
-              />
+              <p className="w-full text-base">{resumeData.skills.join(', ')}</p>
             </CardContent>
           </Section>
 
           {/* Hobbies and Interests Section */}
           <Section title="Hobbies and Interests" icon={<Heart />}>
             <CardContent>
-              <EditableField
-                as="textarea"
-                value={resumeData.hobbies.join('; ')}
-                onSave={(v) => handleUpdate('hobbies', v.split(';').map(s => s.trim()))}
-                className="w-full text-base"
-                placeholder="Hobby 1; Hobby 2; Hobby 3"
-              />
+              <p className="w-full text-base">{resumeData.hobbies.join('; ')}</p>
             </CardContent>
           </Section>
 
