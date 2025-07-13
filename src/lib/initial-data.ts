@@ -9,8 +9,8 @@ export const initialResumeData: ResumeData = {
     location: 'São João da Boa Vista, SP, Brazil',
   },
   links: {
-    linkedin: 'http://linkedin.com/in/leonardohtfn',
-    github: 'http://github.com/leotomassetti',
+    linkedin: 'https://www.linkedin.com/in/leonardohtfn/',
+    github: 'https://github.com/leotomassetti/',
     lattes: 'http://lattes.cnpq.br/4183827947361960',
   },
   summary:
@@ -120,6 +120,12 @@ export const initialResumeData: ResumeData = {
     { name: 'Software House. PECE - Politechnique School - University of São Paulo. 30 hours. 2011.' },
     { name: 'Web Development with JSF2 and JPA2. K19 Treinamentos, 36 hours, São Paulo, Brazil. 2011.' },
     { name: 'Object Oriented with UML 2.0. Caelum Treinamentos, 28 hours, São Paulo, Brazil. 2011.' },
+  ],
+  projects: [
+    {
+      name: 'CompraCheck',
+      description: 'CompraCheck.com.br',
+    },
   ],
   hobbies: ['Reading', 'Craftsmanship', 'Table tennis'],
 };

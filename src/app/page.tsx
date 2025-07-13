@@ -19,6 +19,7 @@ import {
   Github,
   FileText,
   Heart,
+  LayoutGrid,
 } from 'lucide-react';
 import { Section } from '@/components/resume/section';
 import { ModeToggle } from '@/components/mode-toggle';
@@ -140,6 +141,22 @@ export default function Home() {
           <Section title="Skills" icon={<Star />}>
             <CardContent>
               <p className="w-full text-base">{resumeData.skills.join(', ')}</p>
+            </CardContent>
+          </Section>
+          
+          {/* Projects Section */}
+          <Section title="Projects" icon={<LayoutGrid />}>
+            <CardContent>
+              {resumeData.projects.map((project, index) => (
+                <div key={index} className="group relative">
+                  <div className="font-semibold text-primary">
+                    {project.name}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {project.description}
+                  </div>
+                </div>
+              ))}
             </CardContent>
           </Section>
 

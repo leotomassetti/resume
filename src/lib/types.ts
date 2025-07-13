@@ -27,6 +27,11 @@ export interface ProfessionalDevelopment {
   name: string;
 }
 
+export interface Project {
+  name: string;
+  description: string;
+}
+
 export interface ResumeData {
   name: string;
   title: string;
@@ -37,5 +42,6 @@ export interface ResumeData {
   education: Education[];
   skills: string[];
   professionalDevelopment: ProfessionalDevelopment[];
+  projects: Project[];
   hobbies: string[];
 }
