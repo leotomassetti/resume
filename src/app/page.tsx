@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
-import { AiEnhanceButton } from '@/components/resume/ai-enhance-button';
 import { generateResumeSummary } from './actions';
 
 const Header: FC<{ onCopy: () => void; onExport: () => void }> = ({ onCopy, onExport }) => (
@@ -60,13 +59,6 @@ export default function Home() {
       current[keys[keys.length - 1]] = value;
       return newResumeData;
     });
-  };
-
-  const removeItem = (section: keyof ResumeData, index: number) => {
-    setResumeData((prev) => ({
-      ...prev,
-      [section]: (prev[section] as any[]).filter((_, i) => i !== index),
-    }));
   };
   
   const handleGenerateSummary = () => {
@@ -189,15 +181,6 @@ export default function Home() {
                     className="text-base"
                     placeholder="Describe your responsibilities and achievements..."
                   />
-                  <div className="mt-2 flex justify-end items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity no-print">
-                      <AiEnhanceButton 
-                        content={exp.description}
-                        onEnhance={(newContent) => handleUpdate(`experience[${index}].description`, newContent)}
-                      />
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('experience', index)}>
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
-                  </div>
                 </div>
               ))}
             </CardContent>
@@ -217,11 +200,6 @@ export default function Home() {
                   <div className="text-xs text-muted-foreground mb-2">
                     <EditableField value={edu.date} onSave={(v) => handleUpdate(`education[${index}].date`, v)} placeholder="Month Year - Month Year" />
                   </div>
-                  <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity no-print">
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('education', index)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </div>
                 </div>
               ))}
             </CardContent>
@@ -234,11 +212,6 @@ export default function Home() {
                 <div key={index} className="group relative flex items-center">
                   <div className="text-base flex-grow">
                     <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity no-print ml-2">
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('professionalDevelopment', index)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
                   </div>
                 </div>
               ))}
