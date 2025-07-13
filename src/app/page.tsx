@@ -21,6 +21,8 @@ import {
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
 import { ModeToggle } from '@/components/mode-toggle';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const Header: FC<{ onExport: () => void }> = ({ onExport }) => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
@@ -55,14 +57,63 @@ export default function Home() {
   };
 
   const handleExportPdf = () => {
-    window.print();
-  };
+    const resumeElement = document.getElementById('resume-container');
+    if (!resumeElement) {
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not find resume content to export.',
+        });
+        return;
+    }
+    html2canvas(resumeElement, {
+        scale: 2,
+        useCORS: true, 
+        logging: false,
+    }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'pt',
+            format: 'a4',
+        });
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const ratio = canvasWidth / canvasHeight;
+        const width = pdfWidth;
+        const height = width / ratio;
+
+        let position = 0;
+        let heightLeft = height;
+
+        pdf.addImage(imgData, 'PNG', 0, position, width, height);
+        heightLeft -= pdfHeight;
+
+        while (heightLeft > 0) {
+            position = heightLeft - height;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, width, height);
+            heightLeft -= pdfHeight;
+        }
+        
+        pdf.save('resume.pdf');
+    }).catch(err => {
+        toast({
+            variant: 'destructive',
+            title: 'Error exporting PDF',
+            description: 'Something went wrong while generating the PDF.',
+        });
+    });
+};
+
   
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <Header onExport={handleExportPdf} />
       <main className="container mx-auto p-4 md:p-8">
-        <div className="resume-container mx-auto max-w-4xl rounded-lg border bg-card p-6 sm:p-10 shadow-lg">
+        <div id="resume-container" className="resume-container mx-auto max-w-4xl rounded-lg border bg-card p-6 sm:p-10 shadow-lg">
           {/* Name and Title */}
           <div className="text-center mb-10">
             <EditableField
