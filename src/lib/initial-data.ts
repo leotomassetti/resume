@@ -2,12 +2,16 @@ import type { ResumeData } from './types';
 
 export const initialResumeData: ResumeData = {
   name: 'Leonardo Henrique Tomassetti Ferreira Neto',
-  title: 'Senior Software Engineer',
-  profession: 'Software Engineering',
+  title: 'Software Engineer',
   contact: {
     email: 'eng.leonardo.neto@gmail.com',
     phone: '+55 19 99741-4799',
     location: 'São João da Boa Vista, SP, Brazil',
+  },
+  links: {
+    linkedin: 'linkedin.com/in/your-profile',
+    github: 'github.com/your-username',
+    lattes: 'lattes.cnpq.br/your-id',
   },
   summary:
     'Entrepreneurial engineer with 15+ years’ experience across diverse industries with proven ability to adapt in both self-starting and collaborative environments while staying focused on achieving high-quality results. Extreme competence in multi-disciplinary hands-on, well-organized and customer-focused with proven skills in project management and team leadership.',

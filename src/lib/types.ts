@@ -4,6 +4,12 @@ export interface Contact {
   location: string;
 }
 
+export interface Links {
+  linkedin: string;
+  github: string;
+  lattes: string;
+}
+
 export interface Experience {
   title: string;
   company: string;
@@ -24,8 +30,8 @@ export interface ProfessionalDevelopment {
 export interface ResumeData {
   name: string;
   title: string;
-  profession: string;
   contact: Contact;
+  links: Links;
   summary: string;
   experience: Experience[];
   education: Education[];

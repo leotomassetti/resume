@@ -14,6 +14,10 @@ import {
   User,
   MapPin,
   Award,
+  Link as LinkIcon,
+  Linkedin,
+  Github,
+  FileText
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
@@ -22,7 +26,7 @@ import { ModeToggle } from '@/components/mode-toggle';
 const Header: FC = () => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
     <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-      <h1 className="text-2xl font-bold text-primary">ResumeFlow</h1>
+      <h1 className="text-2xl font-bold text-primary">Resume</h1>
       <div className="flex items-center gap-2">
         <ModeToggle />
       </div>
@@ -85,6 +89,39 @@ export default function Home() {
               </div>
           </div>
           
+          {/* Links Section */}
+          <Section title="Links" icon={<LinkIcon />}>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Linkedin className="h-5 w-5 text-muted-foreground" />
+                <EditableField
+                  value={resumeData.links.linkedin}
+                  onSave={(v) => handleUpdate('links.linkedin', v)}
+                  placeholder="linkedin.com/in/your-profile"
+                  className="w-full text-base"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <Github className="h-5 w-5 text-muted-foreground" />
+                <EditableField
+                  value={resumeData.links.github}
+                  onSave={(v) => handleUpdate('links.github', v)}
+                  placeholder="github.com/your-username"
+                  className="w-full text-base"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <FileText className="h-5 w-5 text-muted-foreground" />
+                <EditableField
+                  value={resumeData.links.lattes}
+                  onSave={(v) => handleUpdate('links.lattes', v)}
+                  placeholder="lattes.cnpq.br/your-id"
+                  className="w-full text-base"
+                />
+              </div>
+            </CardContent>
+          </Section>
+
           {/* Summary Section */}
           <Section title="Summary" icon={<User />}>
              <CardContent>
