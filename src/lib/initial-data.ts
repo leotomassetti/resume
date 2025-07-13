@@ -120,5 +120,6 @@ export const initialResumeData: ResumeData = {
     { name: 'Software House. PECE - Politechnique School - University of São Paulo. 30 hours. 2011.' },
     { name: 'Web Development with JSF2 and JPA2. K19 Treinamentos, 36 hours, São Paulo, Brazil. 2011.' },
     { name: 'Object Oriented with UML 2.0. Caelum Treinamentos, 28 hours, São Paulo, Brazil. 2011.' },
-  ]
+  ],
+  hobbies: ['Reading', 'Craftsmanship', 'Table tennis'],
 };

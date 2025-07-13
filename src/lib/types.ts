@@ -37,4 +37,5 @@ export interface ResumeData {
   education: Education[];
   skills: string[];
   professionalDevelopment: ProfessionalDevelopment[];
+  hobbies: string[];
 }

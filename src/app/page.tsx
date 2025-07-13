@@ -17,7 +17,8 @@ import {
   Link as LinkIcon,
   Linkedin,
   Github,
-  FileText
+  FileText,
+  Heart,
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
@@ -211,6 +212,20 @@ export default function Home() {
               />
             </CardContent>
           </Section>
+
+          {/* Hobbies and Interests Section */}
+          <Section title="Hobbies and Interests" icon={<Heart />}>
+            <CardContent>
+              <EditableField
+                as="textarea"
+                value={resumeData.hobbies.join('; ')}
+                onSave={(v) => handleUpdate('hobbies', v.split(';').map(s => s.trim()))}
+                className="w-full text-base"
+                placeholder="Hobby 1; Hobby 2; Hobby 3"
+              />
+            </CardContent>
+          </Section>
+
         </div>
       </main>
     </div>
