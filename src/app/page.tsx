@@ -3,7 +3,7 @@
 import type { FC, ReactNode } from 'react';
 import React, { useState, useTransition } from 'react';
 import { initialResumeData } from '@/lib/initial-data';
-import type { ResumeData, Experience, Education } from '@/lib/types';
+import type { ResumeData, Experience, Education, ProfessionalDevelopment } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,7 @@ import {
   Trash2,
   User,
   MapPin,
+  Award,
 } from 'lucide-react';
 import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
@@ -51,7 +52,7 @@ export default function Home() {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
 
-  const handleUpdate = (path: string, value: string) => {
+  const handleUpdate = (path: string, value: any) => {
     setResumeData((prev) => {
       const keys = path.replace(/\[(\d+)\]/g, '.$1').split('.');
       const newResumeData = JSON.parse(JSON.stringify(prev));
@@ -259,6 +260,29 @@ export default function Home() {
               <div className="flex justify-center no-print mt-4">
                   <Button variant="outline" onClick={() => addItem<Education>('education', { degree: '', school: '', date: '' })}>
                       <PlusCircle className="mr-2 h-4 w-4" /> Add Education
+                  </Button>
+              </div>
+            </CardContent>
+          </Section>
+
+          {/* Professional Development Section */}
+          <Section title="Professional Development" icon={<Award />}>
+             <CardContent className="space-y-2">
+              {resumeData.professionalDevelopment.map((dev, index) => (
+                <div key={index} className="group relative flex items-center">
+                  <p className="text-base flex-grow">
+                    <EditableField value={dev.name} onSave={(v) => handleUpdate(`professionalDevelopment[${index}].name`, v)} placeholder="Course or Certificate" />
+                  </p>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity no-print ml-2">
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('professionalDevelopment', index)}>
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-center no-print mt-4">
+                  <Button variant="outline" onClick={() => addItem<ProfessionalDevelopment>('professionalDevelopment', { name: '' })}>
+                      <PlusCircle className="mr-2 h-4 w-4" /> Add Development
                   </Button>
               </div>
             </CardContent>

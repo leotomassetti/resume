@@ -17,6 +17,10 @@ export interface Education {
   date: string;
 }
 
+export interface ProfessionalDevelopment {
+  name: string;
+}
+
 export interface ResumeData {
   name: string;
   title: string;
@@ -26,4 +30,5 @@ export interface ResumeData {
   experience: Experience[];
   education: Education[];
   skills: string[];
+  professionalDevelopment: ProfessionalDevelopment[];
 }
