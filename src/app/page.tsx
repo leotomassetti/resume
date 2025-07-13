@@ -73,25 +73,16 @@ export default function Home() {
 
           {/* Links Section */}
           <Section title="Links" icon={<LinkIcon />}>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-3">
-                <a href={`https://${resumeData.links.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  <Linkedin className="h-5 w-5 text-muted-foreground" />
-                </a>
-                <span className="w-full text-base">{resumeData.links.linkedin}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <a href={`https://${resumeData.links.github}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  <Github className="h-5 w-5 text-muted-foreground" />
-                </a>
-                <span className="w-full text-base">{resumeData.links.github}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <a href={`http://${resumeData.links.lattes}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  <FileText className="h-5 w-5 text-muted-foreground" />
-                </a>
-                <span className="w-full text-base">{resumeData.links.lattes}</span>
-              </div>
+            <CardContent className="flex items-center gap-4">
+              <a href={resumeData.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+              </a>
+              <a href={resumeData.links.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <Github className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+              </a>
+              <a href={resumeData.links.lattes} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <FileText className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+              </a>
             </CardContent>
           </Section>
 

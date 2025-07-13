@@ -9,9 +9,9 @@ export const initialResumeData: ResumeData = {
     location: 'São João da Boa Vista, SP, Brazil',
   },
   links: {
-    linkedin: 'linkedin.com/in/leonardohtfn',
-    github: 'github.com/leotomassetti',
-    lattes: 'lattes.cnpq.br/4183827947361960',
+    linkedin: 'http://linkedin.com/in/leonardohtfn',
+    github: 'http://github.com/leotomassetti',
+    lattes: 'http://lattes.cnpq.br/4183827947361960',
   },
   summary:
     'Entrepreneurial engineer with 15+ years’ experience across diverse industries with proven ability to adapt in both self-starting and collaborative environments while staying focused on achieving high-quality results. Extreme competence in multi-disciplinary hands-on, well-organized and customer-focused with proven skills in project management and team leadership.',
