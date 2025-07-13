@@ -6,7 +6,6 @@ import { initialResumeData } from '@/lib/initial-data';
 import type { ResumeData, Experience, Education, ProfessionalDevelopment } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import {
   Briefcase,
@@ -15,7 +14,6 @@ import {
   GraduationCap,
   Mail,
   Phone,
-  PlusCircle,
   Sparkles,
   Star,
   Trash2,
@@ -27,7 +25,6 @@ import { EditableField } from '@/components/resume/editable-field';
 import { Section } from '@/components/resume/section';
 import { AiEnhanceButton } from '@/components/resume/ai-enhance-button';
 import { generateResumeSummary } from './actions';
-import { Textarea } from '@/components/ui/textarea';
 
 const Header: FC<{ onCopy: () => void; onExport: () => void }> = ({ onCopy, onExport }) => (
   <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b no-print">
@@ -63,13 +60,6 @@ export default function Home() {
       current[keys[keys.length - 1]] = value;
       return newResumeData;
     });
-  };
-
-  const addItem = <T,>(section: keyof ResumeData, newItem: T) => {
-    setResumeData((prev) => ({
-      ...prev,
-      [section]: [...(prev[section] as T[]), newItem],
-    }));
   };
 
   const removeItem = (section: keyof ResumeData, index: number) => {
@@ -202,7 +192,6 @@ export default function Home() {
                   <div className="mt-2 flex justify-end items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity no-print">
                       <AiEnhanceButton 
                         content={exp.description}
-                        profession={resumeData.profession}
                         onEnhance={(newContent) => handleUpdate(`experience[${index}].description`, newContent)}
                       />
                       <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => removeItem('experience', index)}>
@@ -211,11 +200,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-center no-print mt-4">
-                  <Button variant="outline" onClick={() => addItem<Experience>('experience', { title: '', company: '', date: '', description: '' })}>
-                      <PlusCircle className="mr-2 h-4 w-4" /> Add Experience
-                  </Button>
-              </div>
             </CardContent>
           </Section>
 
@@ -240,11 +224,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-center no-print mt-4">
-                  <Button variant="outline" onClick={() => addItem<Education>('education', { degree: '', school: '', date: '' })}>
-                      <PlusCircle className="mr-2 h-4 w-4" /> Add Education
-                  </Button>
-              </div>
             </CardContent>
           </Section>
 
@@ -263,11 +242,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-center no-print mt-4">
-                  <Button variant="outline" onClick={() => addItem<ProfessionalDevelopment>('professionalDevelopment', { name: '' })}>
-                      <PlusCircle className="mr-2 h-4 w-4" /> Add Development
-                  </Button>
-              </div>
             </CardContent>
           </Section>
 

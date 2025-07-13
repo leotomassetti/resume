@@ -18,13 +18,11 @@ import { Skeleton } from '../ui/skeleton';
 
 interface AiEnhanceButtonProps {
   content: string;
-  profession: string;
   onEnhance: (newContent: string) => void;
 }
 
 export const AiEnhanceButton: React.FC<AiEnhanceButtonProps> = ({
   content,
-  profession,
   onEnhance,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,22 +32,13 @@ export const AiEnhanceButton: React.FC<AiEnhanceButtonProps> = ({
   const { toast } = useToast();
 
   const handleEnhanceClick = () => {
-    if (!profession) {
-        toast({
-            variant: "destructive",
-            title: "Profession not set",
-            description: "Please provide your profession/industry in the AI Settings section.",
-        });
-        return;
-    }
-
     setIsOpen(true);
     startTransition(async () => {
       try {
         const result = await enhanceResumeContent({
           resumeContent: content,
-          profession: profession,
-          industry: profession,
+          profession: "Software Engineering",
+          industry: "Technology",
         });
         setEnhancedContent(result.enhancedContent);
         setSuggestions(result.suggestions);
