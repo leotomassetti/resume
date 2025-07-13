@@ -125,6 +125,7 @@ export const initialResumeData: ResumeData = {
     {
       name: 'CompraCheck',
       description: 'CompraCheck.com.br',
+      url: 'https://CompraCheck.com.br'
     },
   ],
   hobbies: ['Reading', 'Craftsmanship', 'Table tennis'],

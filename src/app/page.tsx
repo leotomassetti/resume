@@ -150,7 +150,9 @@ export default function Home() {
               {resumeData.projects.map((project, index) => (
                 <div key={index} className="group relative">
                   <div className="font-semibold text-primary">
-                    {project.name}
+                    <a href={project.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      {project.name}
+                    </a>
                   </div>
                   <div className="text-sm text-muted-foreground">
                     {project.description}

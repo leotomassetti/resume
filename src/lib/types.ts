@@ -30,6 +30,7 @@ export interface ProfessionalDevelopment {
 export interface Project {
   name: string;
   description: string;
+  url: string;
 }
 
 export interface ResumeData {
